@@ -58,7 +58,7 @@ export const initialNodes = [
   box('mcp', 'Model Context Protocol Servers', 'business-domains', { x: 242, y: 128 }, 160, 60, { dashed: true }),
 
   // ── Backing Services ─────────────────────────────────────────────────────
-  zone('backing-services', 'Backing Services', { x: 935, y: 310 }, 465, 480, '#14b8a6', '#dcfaf6'),
+  zone('backing-services', 'Backing Services', { x: 935, y: 310 }, 465, 480, '#CE4257', '#CE4257'),
 
    // -- Connectivity ---------------------------------------------------------
   zone('connectivity', 'Connectivity' , { x: 486, y: 535}, 415, 125, { stacked: true}, '#694F5D'),
@@ -134,7 +134,7 @@ export const initialNodes = [
   {
     id: 'note-events',
     type: 'note',
-    position: { x: 1030, y: 228 },
+    position: { x: 1060, y: 208 },
     width: 355,
     data: {
       label:
