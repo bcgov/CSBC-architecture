@@ -1,0 +1,81 @@
+# ── Dependencies ─────────────────────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# NOTE: package-lock.json is deliberately NOT ignored.
+# .github/workflows/deploy.yml runs `npm ci`, which reads the lockfile and
+# fails outright without it. Committing it is also what makes CI build the
+# same dependency tree you tested locally.
+
+# ── Build output ─────────────────────────────────────────────────────────────
+# GitHub Actions builds dist/ fresh on every push, so the committed repo
+# should only ever contain source. Committing dist/ invites the classic
+# "the deployed site doesn't match main" confusion.
+dist/
+dist-ssr/
+build/
+.svelte-kit/
+
+# ── Caches ───────────────────────────────────────────────────────────────────
+.vite/
+node_modules/.vite/
+.cache/
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+
+# ── Local env / secrets ──────────────────────────────────────────────────────
+# This diagram is fully static and has no secrets today, but these lines cost
+# nothing and mean a stray key never lands in a public repo by accident.
+.env
+.env.*
+!.env.example
+*.local
+*.pem
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ── Editor ───────────────────────────────────────────────────────────────────
+# Ignore personal VS Code settings but keep the shared extension
+# recommendation — it's what prompts a new contributor to install the Svelte
+# extension, without which .svelte files look like plain text.
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ── OS cruft ─────────────────────────────────────────────────────────────────
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+Desktop.ini
+
+# ── Scratch ──────────────────────────────────────────────────────────────────
+# Somewhere to park screenshots, exported SVGs or coordinate dumps while
+# repositioning nodes, without them ending up in the repo.
+scratch/
+*.tmp
+
+# ── Deliberately tracked ─────────────────────────────────────────────────────
+# public/.nojekyll is an empty dotfile that must reach the build output, so
+# never let a broad dotfile rule swallow it.
+!public/.nojekyll
