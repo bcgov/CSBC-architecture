@@ -234,5 +234,80 @@ cite in meetings: read `location.hash` on mount to set `openId`, and push the
 id to the hash whenever the modal opens. Now `…/#event-stream` opens the
 diagram with that panel already up.
 
-**Static hosting** — `npm run build` produces a `dist/` folder with no server
-requirement. Drop it on GitHub Pages, Netlify, or any static bucket.
+---
+
+## Publishing to GitHub Pages
+
+`npm run build` already produces a fully static `dist/` — plain HTML, one JS
+bundle, one CSS file. There is no server, no Node runtime, no API. Pages can
+host it as-is.
+
+### One-time setup
+
+```bash
+git init && git add -A && git commit -m "Interactive reference architecture"
+git branch -M main
+git remote add origin https://github.com/<you>/<repo>.git
+git push -u origin main
+```
+
+Then in the repo: **Settings → Pages → Build and deployment → Source →
+GitHub Actions**. That's the only click required — do *not* pick "Deploy from
+a branch", which is the older `gh-pages` flow and ignores the workflow below.
+
+The included `.github/workflows/deploy.yml` runs on every push to `main`:
+checkout → `npm ci` → `npm run build` → upload `dist/` → deploy. First run
+takes about a minute, and the URL appears in the Actions run summary. It'll be
+`https://<you>.github.io/<repo>/`.
+
+### The one thing that breaks this, and why it won't
+
+The classic failure is a blank white page with 404s for `/assets/index-*.js`.
+It happens because a project site lives at `https://<you>.github.io/<repo>/`,
+but Vite defaults to absolute asset URLs (`/assets/...`) which resolve against
+the *domain* root — one directory too high.
+
+`vite.config.js` sets `base: './'`, which emits relative URLs instead:
+
+```html
+<script type="module" src="./assets/index-CJvjUhdF.js"></script>
+```
+
+The same `dist/` now works at a repo sub-path, at a user/org root site, behind
+a custom domain, and from a local `file://` open — without hard-coding the repo
+name anywhere. Renaming the repo doesn't break the deploy.
+
+(The usual advice is `base: '/<repo>/'`. That works too, but bakes the repo
+name into the build. Relative base is strictly more portable here. The only
+thing it can't support is client-side routing on real paths — irrelevant for
+this diagram, and the hash deep-linking suggested above is unaffected.)
+
+`public/.nojekyll` is also included. GitHub Pages runs output through Jekyll by
+default, which strips directories beginning with an underscore. Vite doesn't
+currently emit any, so this is belt-and-braces — but it costs an empty file and
+saves a confusing afternoon if that ever changes.
+
+### Checking it locally before you push
+
+Simulate the sub-path exactly rather than trusting `vite preview`:
+
+```bash
+npm run build
+mkdir -p /tmp/pages/<repo> && cp -r dist/. /tmp/pages/<repo>/
+cd /tmp/pages && python3 -m http.server 8099
+# open http://localhost:8099/<repo>/
+```
+
+If it works there, it works on Pages. (This project was verified this way —
+26 nodes, 5 edges, zero 404s, modals opening.)
+
+### If the repo is private
+
+Pages on a private repo requires a paid GitHub plan. On the free tier, either
+make the repo public or publish the built `dist/` from a separate public repo.
+
+### Other hosts
+
+The same `dist/` deploys unchanged to Netlify, Vercel, Cloudflare Pages, S3 +
+CloudFront, or any static bucket — build command `npm run build`, publish
+directory `dist`. Nothing in this project is Pages-specific.

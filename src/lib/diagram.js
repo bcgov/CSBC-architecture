@@ -39,8 +39,8 @@ const box = (id, label, parentId, position, width, height, extra = {}) => ({
 
 export const initialNodes = [
   // ── Client Experience ────────────────────────────────────────────────────
-  zone('client-experience', 'Client Experience', { x: 500, y: 20 }, 530, 205, '#f8c7cc', '#f8c7cc'),
-  box('unified-gov', 'Enhanced Design System', 'client-experience', { x: 18, y: 52 }, 492, 44),
+  zone('client-experience', 'Client Experience', { x: 500, y: 20 }, 530, 205, '#8b5cf6', '#f3effe'),
+  box('unified-gov', 'Unified Government Experience', 'client-experience', { x: 18, y: 52 }, 492, 44),
   box('bcsc-app', 'BC Services Card Mobile App', 'client-experience', { x: 18, y: 110 }, 132, 74),
   box('digital-gateway', 'Single Digital Gateway (service portal, navigation root)', 'client-experience', { x: 160, y: 110 }, 172, 74),
   box('service-delivery', 'Service Delivery Experience', 'client-experience', { x: 342, y: 110 }, 168, 74),
@@ -49,35 +49,16 @@ export const initialNodes = [
   box('event-stream', 'Event Stream', null, { x: 518, y: 252 }, 530, 36, { dashed: true }),
 
   // ── Business Domains ─────────────────────────────────────────────────────
-  zone('business-domains', 'Business Domains', { x: 486, y: 310 }, 415, 205, '#57886C', '#57886C', 'bottom'),
+  zone('business-domains', 'Business Domains', { x: 476, y: 360 }, 415, 205, '#3b82f6', '#e7f0fe', 'bottom'),
   box('lob-apps', 'LoB Business Applications', 'business-domains', { x: 20, y: 26 }, 158, 84, {
     sublabel: 'ADRs live here',
     stacked: true
   }),
   box('bff', 'Service Provision Journey BFFs', 'business-domains', { x: 232, y: 22 }, 152, 76, { stacked: true }),
-  box('mcp', 'Model Context Protocol Servers', 'business-domains', { x: 242, y: 128 }, 160, 60, { dashed: true }),
+  box('mcp', 'MCP', 'business-domains', { x: 328, y: 128 }, 62, 60, { dashed: true }),
 
   // ── Backing Services ─────────────────────────────────────────────────────
-  zone('backing-services', 'Backing Services', { x: 935, y: 310 }, 465, 500, '#466060', '#466060'),
-
-  // -- Connectivity ---------------------------------------------------------
-  zone('connectivity', 'Connectivity' , { x: 486, y: 535}, 415, 125, { stacked: true}, '#694F5D'),
-  box('sdx-aps', 'Secure Data Exchange / API Platform (P2P)', 'connectivity', { x: 232, y: 20 }, 158, 84),
-
-  // -- Data Services ----------------------------------------
-  zone('data-services', 'Data Services', { x: 50,  y: 310}, 415, 350, null, '#279AF1'),
-  box ('bcdc', 'BC Data Catalogue', 'data-services', {x: 240, y: 22}, 152, 76,),
-  box('efv', 'Eligibility Factor Verification', 'data-services', {x: 240, y:106}, 152, 76),
-  zone('data-mesh', 'Data Mesh', {x: 70, y: 360 }, 210, 210, '#131122'),
-  box('compute', 'Compute', 'data-mesh', {x: 10 , y: 50 }, 80, 50),
-  box('storage', 'Storage', 'data-mesh', {x: 95, y: 50}, 80, 50),
-  box('policy', 'Policy', 'data-mesh', {x: 10 , y: 106}, 80, 50),
-  box('entity-resolution', 'Entity Resolution', 'data-mesh', {x: 95, y:106}, 80, 50),
-  zone('data-federation', '', { x: 70,  y: 580}, 630, 60, null, ''),
-  box('data-federationbox', 'Data Federation', 'data-federation', {x: 1, y:1}, 630, 60),
-
-  
- 
+  zone('backing-services', 'Backing Services', { x: 935, y: 310 }, 465, 480, '#14b8a6', '#dcfaf6'),
 
   // Groups render behind the boxes that overlap them, hence the explicit zIndex.
   {
@@ -108,8 +89,6 @@ export const initialNodes = [
   // BCSC / CSSO deliberately spans BOTH groups, so it is a child of the zone
   // rather than of either group. Nesting is a containment claim — don't make
   // one the layout can't honour.
-
- 
   { ...box('bcsc-csso', 'BCSC / CSSO', 'backing-services', { x: 58, y: 118 }, 355, 46), zIndex: 2 },
   { ...box('entra', 'Entra', 'backing-services', { x: 58, y: 180 }, 136, 44), zIndex: 2 },
   { ...box('bceid', 'BCeID', 'backing-services', { x: 58, y: 238 }, 136, 44), zIndex: 2 },
