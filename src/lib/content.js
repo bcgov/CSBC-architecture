@@ -13,13 +13,13 @@ export const content = {
   'client-experience': {
     kind: 'Zone',
     title: 'Client Experience',
-    body: `Everything a member of the public or a staff user actually sees. This is the only layer permitted to present an end-user interface.
+    body: `Everything a member of the public or a staff user actually sees. In the final state, this is the only layer permitted to display a user interface. During the messy middle, different line-of-business applications will have differing abilities to "go headless." 
 
-Service UX here is constrained by the platform rather than by convention: compliance checking is automated, and assistive AI is trained against the published design standards, so teams cannot ship an experience that silently diverges.`,
+Service UX here is constrained by the platform rather than by convention: compliance checking is automated, and assistive AI is trained against the published design standards, so teams cannot ship an experience that silently diverges and the easiest way to build experiences is the compliant way.`,
     facts: [
-      ['Owner', 'Digital Experience Division'],
-      ['Presents UI', 'Yes — exclusively'],
-      ['Talks to', 'Event Stream only']
+      ['Owner', 'Digital Experience Groups (comms, service design, UX, accessibility, etc.)'],
+      ['Current Status', 'Partial, Design System exists, no automation, no built-in connectivity.'],
+      ['COTS Suitability', 'Moderate - AI app building platform (equipped with custom skills).']
     ],
     links: [{ label: 'BC Design System', href: '#' }]
   },
@@ -27,24 +27,27 @@ Service UX here is constrained by the platform rather than by convention: compli
   'business-domains': {
     kind: 'Zone',
     title: 'Business Domains',
-    body: `Line-of-business capability, owned by the ministry that owns the policy. Domains publish and consume events; they never render UI.
+    body: `Line-of-business capability, owned by the ministry that delivers the program. For those systems that can process event streams directly, they ingest those topics. For the others, even stream processors will orchestrate event responses within their domain (this is a scaffold until native event streaming is enabled).
 
-Architecture Decision Records for a domain live with that domain's applications, not in a central repository.`,
+Event processor middleware is a strong AI-assisted development target.
+
+Architecture Decision Records for these systems are aggregated into a corporate library but maintained locally.`,
     facts: [
-      ['Owner', 'Individual ministries'],
-      ['Presents UI', 'No'],
-      ['ADRs', 'Co-located with the LoB application']
+      ['Owner', 'CSBC Support Teams'],
+      ['Current Status', 'Many systems can be quickly adapted using event processors, others require re-engineering. Nobody does Events.'],
+      ['COTS Suitability', 'Highly Variable. Stream Processors - Apache Flink/Amazon Streams']
     ]
   },
 
   'backing-services': {
     kind: 'Zone',
     title: 'Backing Services',
-    body: `Shared, centrally-operated capability that domains consume rather than rebuild. Treated as commodity: a domain team should never be writing its own notification dispatcher or document renderer.`,
+    body: `Shared, centrally-operated capabilities that domains consume rather than rebuild. Treated as commodity: a domain team should never be writing its own notification dispatcher or document renderer.`,
     facts: [
-      ['Owner', 'Platform Services'],
-      ['Consumption model', 'Self-serve, API-first'],
-      ['SLA', 'Tiered per service']
+      ['Owner', 'CocoAIs'],
+      ['Current Status', 'Auth and access '],
+      ['COTS Suitability', 'High']
+    
     ]
   },
 
@@ -154,7 +157,7 @@ Drawn dashed because it is an emerging interface rather than a settled commitmen
     body: 'Health-sector identity resolution — clinician and patient identifiers.'
   },
   'ai-systems': { kind: 'Component', title: 'AI Systems', body: 'Shared model hosting, evaluation and guardrail tooling.' },
-  'doc-gen': { kind: 'Component', title: 'Document Generation', body: 'Templated correspondence and statutory document rendering.' },
+  'doc-mgmt': { kind: 'Shared Service', title: 'Document Management', body: 'Generation and ingestion of documents - PDFs, Word, certificates etc. A single clean interface for I/O' },
   notifications: { kind: 'Component', title: 'Notifications & Messaging', body: 'Email, SMS and in-app delivery with per-channel preference handling.' },
   'app-hosting': { kind: 'Component', title: 'Application Hosting', body: 'Managed container platform and the paved road onto it.' },
   workflows: { kind: 'Component', title: 'Automated Workflows', body: 'Long-running orchestration and human-in-the-loop task routing.' },

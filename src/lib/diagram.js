@@ -105,13 +105,13 @@ export const initialNodes = [
   // BCSC / CSSO deliberately spans BOTH groups, so it is a child of the zone
   // rather than of either group. Nesting is a containment claim — don't make
   // one the layout can't honour.
-  { ...box('bcsc-csso', 'BCSC / CSSO', 'backing-services', { x: 58, y: 118 }, 355, 46), zIndex: 2 },
+  { ...box('bcsc-csso', 'BCSC / CSSO', 'backing-services', { x: 58, y: 123 }, 355, 46), zIndex: 2 },
   { ...box('entra', 'Entra', 'backing-services', { x: 58, y: 180 }, 136, 44), zIndex: 2 },
   { ...box('bceid', 'BCeID', 'backing-services', { x: 58, y: 238 }, 136, 44), zIndex: 2 },
   { ...box('onehealthid', 'OneHealthID', 'backing-services', { x: 261, y: 180 }, 150, 44), zIndex: 2 },
 
   box('ai-systems', 'AI Systems', 'backing-services', { x: 92, y: 312 }, 136, 48),
-  box('doc-gen', 'Document Generation', 'backing-services', { x: 240, y: 312 }, 136, 48),
+  box('doc-mgmt', 'Document Management', 'backing-services', { x: 240, y: 312 }, 136, 48),
   box('notifications', 'Notifications & Messaging', 'backing-services', { x: 92, y: 370 }, 136, 48),
   box('app-hosting', 'Application Hosting', 'backing-services', { x: 240, y: 370 }, 136, 48),
   box('workflows', 'Automated Workflows', 'backing-services', { x: 92, y: 428 }, 136, 48),
