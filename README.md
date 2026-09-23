@@ -1,8 +1,8 @@
-# Client Experience Architecture
+# Connected Services Architecture
 
-The published site for Connected Services BC's client experience architecture:
-what CSBC has committed to, the principles behind it, and four architectural
-models for delivering it.
+The published site for Connected Services BC's connected services architecture:
+what CSBC has committed to, the principles behind it, and three architecture
+models for delivering it, with Pergola recommended.
 
 Live at the GitHub Pages URL for this repository.
 
